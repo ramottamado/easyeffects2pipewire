@@ -26,15 +26,9 @@ def builder(
         parse_node(ee_output.get(plugin, {}), plugin) for plugin in plugins
     ]
 
-    links: list[dict[str, str]] = create_links(
-        [plugin.replace("#", "_") for plugin in plugins]
-    )
-
-    inputs: list[str] = create_inputs([plugin.replace("#", "_") for plugin in plugins])
-
-    outputs: list[str] = create_outputs(
-        [plugin.replace("#", "_") for plugin in plugins]
-    )
+    links: list[dict[str, str]] = create_links(plugins)
+    inputs: list[str] = create_inputs(plugins)
+    outputs: list[str] = create_outputs(plugins)
 
     filter_graph: dict[str, list] = {
         "nodes": nodes,
@@ -71,15 +65,15 @@ def builder(
 
 def parse_node(config: dict[str, Any], ee_id: str) -> dict[str, str | dict[str, float]]:
     if ee_id.startswith("bass_enhancer"):
-        return parse_bass_enhancer(config, ee_id.replace("#", "_"))
+        return parse_bass_enhancer(config, ee_id)
     elif ee_id.startswith("filter"):
-        return parse_filter(config, ee_id.replace("#", "_"))
+        return parse_filter(config, ee_id)
     elif ee_id.startswith("limiter"):
-        return parse_limiter(config, ee_id.replace("#", "_"))
+        return parse_limiter(config, ee_id)
     elif ee_id.startswith("multiband_compressor"):
-        return parse_multiband_compressor(config, ee_id.replace("#", "_"))
+        return parse_multiband_compressor(config, ee_id)
     elif ee_id.startswith("stereo_tools"):
-        return parse_stereo_tools(config, ee_id.replace("#", "_"))
+        return parse_stereo_tools(config, ee_id)
 
     return {}
 

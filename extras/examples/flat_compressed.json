@@ -9,7 +9,7 @@
           "nodes": [
             {
               "type": "lv2",
-              "name": "multiband_compressor_0",
+              "name": "multiband_compressor#0",
               "plugin": "http://lsp-plug.in/plugins/lv2/sc_mb_compressor_stereo",
               "control": {
                 "mode": 1.0,
@@ -89,7 +89,7 @@
             },
             {
               "type": "lv2",
-              "name": "stereo_tools_0",
+              "name": "stereo_tools#0",
               "plugin": "http://calf.sourceforge.net/plugins/StereoTools",
               "control": {
                 "stereo_base": 0.25
@@ -97,7 +97,7 @@
             },
             {
               "type": "lv2",
-              "name": "limiter_0",
+              "name": "limiter#0",
               "plugin": "http://lsp-plug.in/plugins/lv2/sc_limiter_stereo",
               "control": {
                 "alr": 0.0,
@@ -118,29 +118,29 @@
           ],
           "links": [
             {
-              "output": "multiband_compressor_0:out_l",
-              "input": "stereo_tools_0:in_l"
+              "output": "multiband_compressor#0:out_l",
+              "input": "stereo_tools#0:in_l"
             },
             {
-              "output": "stereo_tools_0:out_l",
-              "input": "limiter_0:in_l"
+              "output": "stereo_tools#0:out_l",
+              "input": "limiter#0:in_l"
             },
             {
-              "output": "multiband_compressor_0:out_r",
-              "input": "stereo_tools_0:in_r"
+              "output": "multiband_compressor#0:out_r",
+              "input": "stereo_tools#0:in_r"
             },
             {
-              "output": "stereo_tools_0:out_r",
-              "input": "limiter_0:in_r"
+              "output": "stereo_tools#0:out_r",
+              "input": "limiter#0:in_r"
             }
           ],
           "inputs": [
-            "multiband_compressor_0:in_l",
-            "multiband_compressor_0:in_r"
+            "multiband_compressor#0:in_l",
+            "multiband_compressor#0:in_r"
           ],
           "outputs": [
-            "limiter_0:out_l",
-            "limiter_0:out_r"
+            "limiter#0:out_l",
+            "limiter#0:out_r"
           ]
         },
         "audio.channels": 2,
