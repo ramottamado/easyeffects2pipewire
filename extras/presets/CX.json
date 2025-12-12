@@ -15,7 +15,7 @@
             "lookahead": 4.000000000000021,
             "mode": "Herm Thin",
             "output-gain": 0.0,
-            "oversampling": "Half x4(3L)",
+            "oversampling": "Half x4/24 bit",
             "release": 8.0,
             "sidechain-preamp": 0.0,
             "stereo-link": 100.0,
