@@ -34,6 +34,7 @@ def parse_multiband_compressor(
 
     pw_node_control_config.update(
         {
+            "enabled": 0.0 if bool(ee_config.get("bypass", False)) else 1.0,
             "mode": MULTIBAND_COMPRESSOR_MODE_MAP.get(
                 ee_config.get("mode", "Modern"), 1.0
             ),

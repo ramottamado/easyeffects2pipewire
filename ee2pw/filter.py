@@ -64,6 +64,7 @@ def parse_filter(
         "name": pw_node_name,
         "plugin": PLUGIN_URI,
         "control": {
+            "enabled": 0.0 if bool(ee_config.get("bypass", False)) else 1.0,
             "bal": ee_config.get("balance", 0.0),
             "mode": FILTER_MODE_MAP.get(ee_config.get("equal-mode", "IIR"), 0.0),
             "f": ee_config.get("frequency", 0.0),

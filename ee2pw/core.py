@@ -20,15 +20,19 @@ def builder(
 ) -> dict:
     config: dict[Any, Any] = load_config(filepath)
     ee_output: dict[Any, Any] = config.get("output", {})
-    plugins: list[str] = ee_output.get("plugins_order", [])
+    plugins: dict[str, str] = {
+        str(plugin): str(plugin).replace("#", "_")
+        for plugin in ee_output.get("plugins_order", [])
+    }
 
     nodes: list[dict[str, str | dict[str, float]]] = [
-        parse_node(ee_output.get(plugin, {}), plugin) for plugin in plugins
+        parse_node(ee_output.get(ee_plugin, {}), pw_node_name)
+        for ee_plugin, pw_node_name in plugins.items()
     ]
 
-    links: list[dict[str, str]] = create_links(plugins)
-    inputs: list[str] = create_inputs(plugins)
-    outputs: list[str] = create_outputs(plugins)
+    links: list[dict[str, str]] = create_links(list(plugins.values()))
+    inputs: list[str] = create_inputs(list(plugins.values()))
+    outputs: list[str] = create_outputs(list(plugins.values()))
 
     filter_graph: dict[str, list] = {
         "nodes": nodes,

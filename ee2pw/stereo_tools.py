@@ -22,6 +22,7 @@ def parse_stereo_tools(
         "name": pw_node_name,
         "plugin": PLUGIN_URI,
         "control": {
+            "bypass": 1.0 if bool(ee_config.get("bypass", False)) else 0.0,
             "stereo_base": ee_config.get("stereo-base", 0.0),
         },
     }

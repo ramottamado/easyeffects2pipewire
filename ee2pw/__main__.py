@@ -41,8 +41,8 @@ def main():
             json.dump(result, out, indent=2)
 
         return 0
-    except Exception:
-        return 1
+    except Exception as e:
+        raise e
 
 
 if __name__ == "__main__":

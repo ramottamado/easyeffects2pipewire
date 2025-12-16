@@ -64,6 +64,7 @@ def parse_limiter(
         "name": pw_node_name,
         "plugin": PLUGIN_URI,
         "control": {
+            "enabled": 0.0 if bool(ee_config.get("bypass", False)) else 1.0,
             "alr": 1.0 if bool(ee_config.get("alr", False)) else 0.0,
             "alr_at": ee_config.get("alr-attack", 5.0),
             "knee": db_to_linear(ee_config.get("alr-knee", 0.0)),

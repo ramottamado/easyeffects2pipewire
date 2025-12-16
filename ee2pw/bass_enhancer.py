@@ -23,10 +23,11 @@ def parse_bass_enhancer(
         "name": pw_node_name,
         "plugin": PLUGIN_URI,
         "control": {
+            "bypass": 1.0 if bool(ee_config.get("bypass", False)) else 0.0,
             "amount": db_to_linear(ee_config.get("amount", 0.0)),
             "blend": ee_config.get("blend", 0.0),
             "floor": ee_config.get("floor", 20.0),
-            "floor_active": (1.0 if ee_config.get("floor-active", False) else 0.0),
+            "floor_active": 1.0 if ee_config.get("floor-active", False) else 0.0,
             "drive": ee_config.get("harmonics", 8.5),
             "freq": ee_config.get("scope", 100.0),
         },
