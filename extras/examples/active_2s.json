@@ -3,40 +3,10 @@
     {
       "name": "libpipewire-module-filter-chain",
       "args": {
-        "node.description": "Internal Speaker",
-        "media.name": "Internal Speaker",
+        "node.description": "Active 2S",
+        "media.name": "Active 2S",
         "filter.graph": {
           "nodes": [
-            {
-              "type": "lv2",
-              "name": "filter_0",
-              "plugin": "http://lsp-plug.in/plugins/lv2/filter_stereo",
-              "control": {
-                "enabled": 1.0,
-                "bal": 0.0,
-                "mode": 0.0,
-                "f": 100.0,
-                "fm": 0.0,
-                "s": 2.0,
-                "ft": 1.0,
-                "w": 4.0,
-                "q": 0.0
-              }
-            },
-            {
-              "type": "lv2",
-              "name": "bass_enhancer_0",
-              "plugin": "http://calf.sourceforge.net/plugins/BassEnhancer",
-              "control": {
-                "bypass": 0.0,
-                "amount": 6.309573444801933,
-                "blend": 0.0,
-                "floor": 10.0,
-                "floor_active": 1.0,
-                "drive": 10.0,
-                "freq": 200.0
-              }
-            },
             {
               "type": "lv2",
               "name": "multiband_compressor_0",
@@ -47,59 +17,75 @@
                 "g_in": 0.7079457843841379,
                 "g_out": 1.0,
                 "al_0": 0.15848931924611134,
-                "at_0": 150.0,
+                "at_0": 200.0,
                 "cm_0": 0.0,
                 "kn_0": 0.251188643150958,
-                "mk_0": 1.5848931924611136,
+                "mk_0": 1.4125375446227544,
                 "cr_0": 1.7782794100389228,
                 "rt_0": 300.0,
                 "cbe_1": 1.0,
-                "sf_1": 200.0,
-                "al_1": 0.06309573444801933,
+                "sf_1": 60.0,
+                "al_1": 0.15848931924611134,
                 "at_1": 150.0,
                 "cm_1": 0.0,
-                "kn_1": 0.35481338923357547,
-                "mk_1": 1.5848931924611136,
-                "cr_1": 1.4125375446227544,
-                "rt_1": 200.0,
+                "kn_1": 0.251188643150958,
+                "mk_1": 1.4125375446227544,
+                "cr_1": 1.7782794100389228,
+                "rt_1": 300.0,
                 "cbe_2": 1.0,
-                "sf_2": 500.0,
+                "sf_2": 250.0,
                 "al_2": 0.06309573444801933,
                 "at_2": 150.0,
                 "cm_2": 0.0,
                 "kn_2": 0.35481338923357547,
-                "mk_2": 1.1220184543019633,
+                "mk_2": 1.4125375446227544,
                 "cr_2": 1.4125375446227544,
                 "rt_2": 200.0,
                 "cbe_3": 1.0,
-                "sf_3": 1250.0,
+                "sf_3": 500.0,
                 "al_3": 0.06309573444801933,
-                "at_3": 100.0,
+                "at_3": 150.0,
                 "cm_3": 0.0,
                 "kn_3": 0.35481338923357547,
                 "mk_3": 1.4125375446227544,
                 "cr_3": 1.4125375446227544,
-                "rt_3": 150.0,
+                "rt_3": 200.0,
                 "cbe_4": 1.0,
-                "sf_4": 5000.0,
+                "sf_4": 1250.0,
                 "al_4": 0.06309573444801933,
-                "at_4": 80.0,
+                "at_4": 100.0,
                 "cm_4": 0.0,
                 "kn_4": 0.35481338923357547,
-                "mk_4": 1.9952623149688795,
-                "cr_4": 1.5848931924611136,
-                "rt_4": 120.0,
+                "mk_4": 1.4125375446227544,
+                "cr_4": 1.4125375446227544,
+                "rt_4": 150.0,
                 "cbe_5": 1.0,
-                "sf_5": 8000.0,
-                "al_5": 0.06309573444801933,
+                "sf_5": 5000.0,
+                "al_5": 0.015848931924611134,
                 "at_5": 80.0,
                 "cm_5": 0.0,
                 "kn_5": 0.35481338923357547,
-                "mk_5": 1.5848931924611136,
+                "mk_5": 1.4125375446227544,
                 "cr_5": 1.5848931924611136,
                 "rt_5": 120.0,
-                "cbe_6": 0.0,
-                "cbe_7": 0.0
+                "cbe_6": 1.0,
+                "sf_6": 8000.0,
+                "al_6": 0.015848931924611134,
+                "at_6": 80.0,
+                "cm_6": 0.0,
+                "kn_6": 0.35481338923357547,
+                "mk_6": 1.4125375446227544,
+                "cr_6": 1.5848931924611136,
+                "rt_6": 100.0,
+                "cbe_7": 1.0,
+                "sf_7": 12000.0,
+                "al_7": 0.015848931924611134,
+                "at_7": 80.0,
+                "cm_7": 0.0,
+                "kn_7": 0.35481338923357547,
+                "mk_7": 1.4125375446227544,
+                "cr_7": 1.5848931924611136,
+                "rt_7": 100.0
               }
             },
             {
@@ -108,7 +94,7 @@
               "plugin": "http://calf.sourceforge.net/plugins/StereoTools",
               "control": {
                 "bypass": 0.0,
-                "stereo_base": 0.4
+                "stereo_base": 0.25
               }
             },
             {
@@ -135,28 +121,12 @@
           ],
           "links": [
             {
-              "output": "filter_0:out_l",
-              "input": "bass_enhancer_0:in_l"
-            },
-            {
-              "output": "bass_enhancer_0:out_l",
-              "input": "multiband_compressor_0:in_l"
-            },
-            {
               "output": "multiband_compressor_0:out_l",
               "input": "stereo_tools_0:in_l"
             },
             {
               "output": "stereo_tools_0:out_l",
               "input": "limiter_0:in_l"
-            },
-            {
-              "output": "filter_0:out_r",
-              "input": "bass_enhancer_0:in_r"
-            },
-            {
-              "output": "bass_enhancer_0:out_r",
-              "input": "multiband_compressor_0:in_r"
             },
             {
               "output": "multiband_compressor_0:out_r",
@@ -168,8 +138,8 @@
             }
           ],
           "inputs": [
-            "filter_0:in_l",
-            "filter_0:in_r"
+            "multiband_compressor_0:in_l",
+            "multiband_compressor_0:in_r"
           ],
           "outputs": [
             "limiter_0:out_l",
@@ -182,17 +152,17 @@
           "FR"
         ],
         "capture.props": {
-          "node.name": "input.internal_speaker",
+          "node.name": "input.active_2s",
           "media.class": "Audio/Sink",
           "filter.smart": true,
-          "filter.smart.name": "Internal Speaker",
+          "filter.smart.name": "Active 2S",
           "filter.smart.target": {
-            "node.name": "alsa_output.pci-0000_73_00.6.HiFi__Speaker__sink"
+            "node.name": "bluez_output.1C_2C_E0_06_C3_85.1"
           }
         },
         "playback.props": {
-          "target.object": "alsa_output.pci-0000_73_00.6.HiFi__Speaker__sink",
-          "node.name": "output.internal_speaker",
+          "target.object": "bluez_output.1C_2C_E0_06_C3_85.1",
+          "node.name": "output.active_2s",
           "node.passive": true,
           "node.dont-fallback": true,
           "node.linger": true

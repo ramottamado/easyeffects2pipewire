@@ -1,7 +1,7 @@
 from typing import Any
 
 PLUGIN_TYPE = "lv2"
-PLUGIN_URI = "http://lsp-plug.in/plugins/lv2/sc_limiter_stereo"
+PLUGIN_URI = "http://lsp-plug.in/plugins/lv2/filter_stereo"
 
 FILTER_MODE_MAP = {
     "IIR": 0.0,

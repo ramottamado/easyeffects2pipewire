@@ -161,6 +161,7 @@
           }
         },
         "playback.props": {
+          "target.object": "alsa_output.usb-Samsung_Samsung_USB_C_Earphones_20160406.1-00.analog-stereo",
           "node.name": "output.samsung_usb_c_earphones",
           "node.passive": true,
           "node.dont-fallback": true,

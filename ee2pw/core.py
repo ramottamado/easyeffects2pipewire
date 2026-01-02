@@ -110,6 +110,7 @@ def create_playback_props(
     snake_case_filter_chain_name = filter_chain_name.replace(" ", "_").lower()
 
     playback_props: dict[str, Any] = {
+        "target.object": smart_filter_target,
         "node.name": f"output.{snake_case_filter_chain_name}",
         "node.passive": True,
     }
