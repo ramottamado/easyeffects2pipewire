@@ -1,7 +1,26 @@
 [project]
-name = "easyeffects2pipewire"
+name = "ee2pw"
 version = "0.1.0"
-description = "Add your description here"
+authors = [
+    {name = "Tamado Sitohang", email = "tamado@tamado.codes"}
+]
+description = "Convert easyeffects preset to pipewire smart filters"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICEN[CS]E"]
 requires-python = ">=3.12"
 dependencies = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Operating System :: POSIX :: Linux",
+  "Intended Audience :: End Users/Desktop",
+  "Topic :: Multimedia :: Sound/Audio",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: 3.15",
+]
+
+[tool.setuptools]
+packages = ["ee2pw"]
