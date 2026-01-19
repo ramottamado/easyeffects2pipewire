@@ -1,4 +1,5 @@
 import json
+from decimal import Decimal
 from math import log10
 
 
@@ -24,7 +25,7 @@ def linear_to_db(linear: float) -> float:
     :rtype: float
     """
     if linear <= 0:
-        return -float("inf")
+        return float("-inf")
     return 20 * log10(linear)
 
 
@@ -40,3 +41,7 @@ def load_config(filepath: str) -> dict:
     with open(filepath, "r") as f:
         data = f.read()
     return json.loads(data)
+
+
+def format_6f(value: float) -> float:
+    return float(format(Decimal(value), ".6f"))

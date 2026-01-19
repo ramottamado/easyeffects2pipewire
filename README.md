@@ -2,6 +2,27 @@
 
 Parse EasyEffects JSON config into PipeWire smart filters.
 
+## Rationale
+
+Since v8.0.0, EasyEffects is built with Qt dependencies. I use GNOME and avoids Qt apps since they
+integrate poorly with GNOME ecosystem. It made sense for me to migrate my EasyEffects presets into
+PipeWire smart filters.
+
+## Caveats
+
+- Only supports EasyEffects v7.2.x
+- Only support LV2 plugins
+- Only supports filter/preset for output
+- Sidechaining is not implemented
+
+## Plugin support
+
+- BassEnhancer (Calf)
+- Filter (LSP)
+- Limiter (LSP)
+- Multi-band Compressor (LSP)
+- Stereo tools (Calf)
+
 ## Usage
 
 ```sh

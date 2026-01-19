@@ -1,5 +1,5 @@
 from typing import Any
-from .util import db_to_linear
+from .lv2_wrapper import parse_bool, parse_enum, parse_float, parse_float_db
 
 PLUGIN_TYPE = "lv2"
 PLUGIN_URI = "http://lsp-plug.in/plugins/lv2/sc_limiter_stereo"
@@ -45,6 +45,18 @@ LIMITER_OVS_MAP: dict[str, float] = {
     "True Peak/24 bit": 22.0,
 }
 
+LIMITER_DITHERING_MAP: dict[str, float] = {
+    "None": 0.0,
+    "7bit": 1.0,
+    "8bit": 2.0,
+    "11bit": 3.0,
+    "12bit": 4.0,
+    "15bit": 5.0,
+    "16bit": 6.0,
+    "23bit": 7.0,
+    "24bit": 8.0,
+}
+
 
 def parse_limiter(
     ee_config: dict[Any, Any], pw_node_name: str
@@ -64,19 +76,23 @@ def parse_limiter(
         "name": pw_node_name,
         "plugin": PLUGIN_URI,
         "control": {
-            "enabled": 0.0 if bool(ee_config.get("bypass", False)) else 1.0,
-            "alr": 1.0 if bool(ee_config.get("alr", False)) else 0.0,
-            "alr_at": ee_config.get("alr-attack", 5.0),
-            "knee": db_to_linear(ee_config.get("alr-knee", 0.0)),
-            "alr_rt": ee_config.get("alr-release", 50.0),
-            "at": ee_config.get("attack", 0.0),
-            "g_in": db_to_linear(ee_config.get("input-gain", 0.0)),
-            "lk": ee_config.get("lookahead", 5.0),
-            "mode": LIMITER_MODE_MAP.get(ee_config.get("mode", "Herm Thin"), 0.0),
-            "g_out": db_to_linear(ee_config.get("output-gain", 0.0)),
-            "ovs": LIMITER_OVS_MAP.get(ee_config.get("oversampling", "None"), 0.0),
-            "rt": ee_config.get("release", 5.0),
-            "slink": ee_config.get("stereo-link", 100.0),
-            "th": db_to_linear(ee_config.get("threshold", 0.0)),
+            "mode": parse_enum(ee_config, "mode", "Herm Thin", LIMITER_MODE_MAP, 0.0),
+            "ovs": parse_enum(ee_config, "oversampling", "None", LIMITER_OVS_MAP, 0.0),
+            "dith": parse_enum(
+                ee_config, "dithering", "None", LIMITER_DITHERING_MAP, 0.0
+            ),
+            "enabled": parse_bool(ee_config, "bypass", False, True),
+            "g_in": parse_float_db(ee_config, "input-gain", 0.0),
+            "g_out": parse_float_db(ee_config, "output-gain", 0.0),
+            "lk": parse_float(ee_config, "lookahead", 5.0),
+            "at": parse_float(ee_config, "attack", 0.0),
+            "rt": parse_float(ee_config, "release", 5.0),
+            "th": parse_float_db(ee_config, "threshold", 0.0),
+            "slink": parse_float(ee_config, "stereo-link", 100.0),
+            "alr_at": parse_float(ee_config, "alr-attack", 5.0),
+            "alr_rt": parse_float(ee_config, "alr-release", 50.0),
+            "knee": parse_float_db(ee_config, "alr-knee", 0.0),
+            "alr": parse_bool(ee_config, "alr", False),
+            "boost": parse_bool(ee_config, "gain-boost", False),
         },
     }
