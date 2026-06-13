@@ -30,6 +30,10 @@ help() {
 	echo "  $0 <node_id> set-makeup-gain -b 2 -g 3"
 }
 
+disable() {
+	pass	
+}
+
 set_input_gain() {
 	shift # past node_id
 	while getopts "g:" options; do
@@ -83,6 +87,34 @@ set_makeup_gain() {
 	set_props_param "$node_id" "multiband_compressor_0:mk_$band" "$(db_to_linear "$gain_value")"
 }
 
+set_solo() {
+	shift # past node_id
+	while getopts "b:v:" options; do
+		case ${options} in
+		b)
+			band=$OPTARG
+			;;
+		v)
+			value=$OPTARG
+			;;
+		*)
+			log "ERROR" "Usage: $0 -b <band> -v <value>"
+			exit 1
+			;;
+		esac
+	done
+
+	if [ -z "$band" ] || [ -z "$value" ]; then
+		log "ERROR" "Both band and value are required."
+		log "ERROR" "Usage: $0 -b <band> -v <value>"
+		exit 1
+	fi
+
+	log "INFO" "Setting solo for band $band to $value on node $node_id"
+
+	set_props_param "$node_id" "multiband_compressor_0:bs_$band" "$value"
+}
+
 main() {
 	node_name="$1"
 	if [ "${node_name}x" == "x" ]; then
@@ -114,6 +146,9 @@ main() {
 		;;
 	set-input-gain)
 		set_input_gain "$node_id" "$@"
+		;;
+	set-solo)
+		set_solo "$node_id" "$@"
 		;;
 	*)
 		log "ERROR" "Unknown subcommand: $subcommand"
