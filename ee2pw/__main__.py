@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import argparse, json
 
 
@@ -25,6 +27,13 @@ def main():
         )
 
         argparser.add_argument(
+            "-i",
+            "--irs-dir",
+            type=str,
+            help="IRS directory (if any).",
+        )
+
+        argparser.add_argument(
             "-o",
             "--output",
             type=str,
@@ -34,7 +43,10 @@ def main():
         args = argparser.parse_args()
 
         result: dict = builder(
-            args.filename, args.filter_chain_name, args.smart_filter_target
+            args.filename,
+            args.filter_chain_name,
+            Path(args.irs_dir),
+            args.smart_filter_target,
         )
 
         with open(args.output, "w") as out:

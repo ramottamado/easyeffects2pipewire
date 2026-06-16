@@ -10,7 +10,7 @@ PipeWire smart filters.
 
 ## Caveats
 
-- Only supports EasyEffects v7.2.x
+- Only supports EasyEffects v8.0.0+
 - Only support LV2 plugins
 - Only supports filter/preset for output
 - Sidechaining is not implemented
@@ -22,6 +22,8 @@ PipeWire smart filters.
 - Limiter (LSP)
 - Multi-band Compressor (LSP)
 - Stereo tools (Calf)
+- Convolver (builtin)
+- Parametric EQ (LSP)
 
 ## Usage
 

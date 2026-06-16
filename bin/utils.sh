@@ -35,7 +35,9 @@ log() {
 		echo -e "\e[31m[ERROR] $message\e[0m"
 		;;
 	DEBUG)
-		echo -e "\e[34m[DEBUG] $message\e[0m"
+		if [[ -z $DEBUG && $DEBUG -eq 1 ]]; then
+			echo -e "\e[34m[DEBUG] $message\e[0m"
+		fi
 		;;
 	*)
 		echo "$message"

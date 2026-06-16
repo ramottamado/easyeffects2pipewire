@@ -12,7 +12,7 @@ def db_to_linear(db: float) -> float:
     :return: linear scale value
     :rtype: float
     """
-    return 10 ** (db / 20)
+    return 10.0 ** (db / 20.0)
 
 
 def linear_to_db(linear: float) -> float:
@@ -24,9 +24,7 @@ def linear_to_db(linear: float) -> float:
     :return: decibel value
     :rtype: float
     """
-    if linear <= 0:
-        return float("-inf")
-    return 20 * log10(linear)
+    return 20.0 * log10(max(linear, 1e-30))
 
 
 def load_config(filepath: str) -> dict:

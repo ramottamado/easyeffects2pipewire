@@ -66,8 +66,8 @@ def parse_multiband_compressor(
     )
 
     for i in range(0, 8):
-        ee_mb_band_config: dict[Any, Any] = ee_config.get(f"band{i}", {})
-        band_enabled: float = parse_bool(ee_mb_band_config, "enable-band", False)
+        band_config: dict[Any, Any] = ee_config.get(f"band{i}", {})
+        band_enabled: float = parse_bool(band_config, "enable-band", False)
 
         if i != 0:  # band0 always active
             pw_node_control_config.update(
@@ -81,31 +81,31 @@ def parse_multiband_compressor(
 
             pw_node_control_config.update(
                 {
-                    f"sf_{i}": parse_float(ee_mb_band_config, "split-frequency", 0.0),
+                    f"sf_{i}": parse_float(band_config, "split-frequency", 100.0),
                 }
             )
 
         pw_node_control_config.update(
             {
-                f"ce_{i}": parse_bool(ee_mb_band_config, "compressor-enable", True),
-                f"bs_{i}": parse_bool(ee_mb_band_config, "solo", False),
-                f"bm_{i}": parse_bool(ee_mb_band_config, "mute", False),
-                f"al_{i}": parse_float_db(ee_mb_band_config, "attack-threshold", -12.0),
-                f"at_{i}": parse_float(ee_mb_band_config, "attack-time", 0.0),
-                f"rrl_{i}": parse_float_db(ee_mb_band_config, "release-threshold", 0.0),
-                f"rt_{i}": parse_float(ee_mb_band_config, "release-time", 100.0),
-                f"cr_{i}": parse_float_db(ee_mb_band_config, "ratio", 0.0),
-                f"kn_{i}": parse_float_db(ee_mb_band_config, "knee", -6.0),
-                f"mk_{i}": parse_float_db(ee_mb_band_config, "makeup", 0.0),
+                f"ce_{i}": parse_bool(band_config, "compressor-enable", True),
+                f"bs_{i}": parse_bool(band_config, "solo", False),
+                f"bm_{i}": parse_bool(band_config, "mute", False),
+                f"al_{i}": parse_float_db(band_config, "attack-threshold", -12.0),
+                f"at_{i}": parse_float(band_config, "attack-time", 20.0),
+                f"rrl_{i}": parse_float_db(band_config, "release-threshold", -80.01),
+                f"rt_{i}": parse_float(band_config, "release-time", 100.0),
+                f"cr_{i}": parse_float_db(band_config, "ratio", 1.0),
+                f"kn_{i}": parse_float_db(band_config, "knee", -6.0),
+                f"mk_{i}": parse_float_db(band_config, "makeup", 0.0),
                 f"cm_{i}": parse_enum(
-                    ee_mb_band_config,
+                    band_config,
                     "compression-mode",
                     "Downward",
                     MULTIBAND_COMPRESSOR_COMPRESSION_MODE_MAP,
                     0.0,
                 ),
-                f"bth_{i}": parse_float_db(ee_mb_band_config, "boost-threshold", -72.0),
-                f"bsa_{i}": parse_float_db(ee_mb_band_config, "boost-amount", 0.0),
+                f"bth_{i}": parse_float_db(band_config, "boost-threshold", -72.0),
+                f"bsa_{i}": parse_float_db(band_config, "boost-amount", 0.0),
             }
         )
 

@@ -6,17 +6,17 @@ PLUGIN_TYPE = "lv2"
 PLUGIN_URI = "http://lsp-plug.in/plugins/lv2/filter_stereo"
 
 FILTER_FT_MAP = {
-    "Lo-shelf": 2.0,
-    "Hi-shelf": 3.0,
-    "Lo-pass": 0.0,
-    "Hi-pass": 1.0,
+    "Low-shelf": 2.0,
+    "High-shelf": 3.0,
+    "Low-pass": 0.0,
+    "High-pass": 1.0,
     "Bell": 4.0,
-    "Bandpass": 5.0,
+    "Band-pass": 5.0,
     "Notch": 6.0,
     "Resonance": 7.0,
     "Ladder-pass": 8.0,
-    "Ladder-rej": 9.0,
-    "Allpass": 10.0,
+    "Ladder-rejection": 9.0,
+    "All-pass": 10.0,
 }
 
 FILTER_FM_MAP = {

@@ -38,4 +38,4 @@ def parse_float_db(
     config_default: float,
 ) -> float:
     config_value: float = float(config.get(config_string, config_default))
-    return format_6f(0.0 if config_value <= -100.0 else db_to_linear(config_value))
+    return format_6f(0.0 if config_value < -80.0 else db_to_linear(config_value))

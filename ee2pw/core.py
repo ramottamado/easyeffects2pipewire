@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 
 from .filter import parse_filter
@@ -6,16 +7,31 @@ from .links import create_inputs, create_links, create_outputs
 from .bass_enhancer import parse_bass_enhancer
 from .stereo_tools import parse_stereo_tools
 from .multiband_compressor import parse_multiband_compressor
+from .convolver import parse_convolver
+from .parametric_eq import parse_parametric_eq
 
 from .util import load_config
 
 AUDIO_CHANNELS = 2
 AUDIO_POSITION = ["FL", "FR"]
 
+SUPPORTED_PLUGINS: list[str] = [
+    "bass_enhancer",
+    "filter",
+    "multiband_compressor",
+    "stereo_tools",
+    "convolver",
+    "limiter",
+    "equalizer",
+]
+
+DEFAULT_IRS_DIR: Path = Path("/etc/pipewire/pipewire.conf.d")
+
 
 def builder(
     filepath: str,
     filter_chain_name: str,
+    irs_dir: Path = DEFAULT_IRS_DIR,
     smart_filter_target: str | None = None,
 ) -> dict:
     config: dict[Any, Any] = load_config(filepath)
@@ -23,11 +39,20 @@ def builder(
     plugins: dict[str, str] = {
         str(plugin): str(plugin).replace("#", "_")
         for plugin in ee_output.get("plugins_order", [])
+        if str(plugin).split("#")[0] in SUPPORTED_PLUGINS
     }
 
     nodes: list[dict[str, str | dict[str, float]]] = [
         parse_node(ee_output.get(ee_plugin, {}), pw_node_name)
         for ee_plugin, pw_node_name in plugins.items()
+        if not ee_plugin.startswith("convolver")
+    ]
+
+    convolver_nodes: list[dict[str, str | dict[str, float | str]] | None] = [
+        item
+        for ee_plugin, pw_node_name in plugins.items()
+        for item in parse_convolver(ee_output.get(ee_plugin, {}), pw_node_name, irs_dir)
+        if ee_plugin.startswith("convolver")
     ]
 
     links: list[dict[str, str]] = create_links(list(plugins.values()))
@@ -35,7 +60,7 @@ def builder(
     outputs: list[str] = create_outputs(list(plugins.values()))
 
     filter_graph: dict[str, list] = {
-        "nodes": nodes,
+        "nodes": nodes + convolver_nodes,
         "links": links,
         "inputs": inputs,
         "outputs": outputs,
@@ -78,6 +103,8 @@ def parse_node(config: dict[str, Any], ee_id: str) -> dict[str, str | dict[str, 
         return parse_multiband_compressor(config, ee_id)
     if ee_id.startswith("stereo_tools"):
         return parse_stereo_tools(config, ee_id)
+    if ee_id.startswith("equalizer"):
+        return parse_parametric_eq(config, ee_id)
 
     return {}
 
