@@ -31,7 +31,7 @@ uv run ruff check src tests && uv run ruff format src tests
 
 The package lives in `src/ee2pw/` (src layout), so it is only importable through the installed editable package — use `uv run`, not a bare `python` outside the venv.
 
-CI (`.github/workflows/ci.yml`) runs ruff and the tests on Python 3.12–3.14. Pushing a `v*` tag runs `release.yml`: it fails unless the tag equals `v` + the `pyproject.toml` version (keep `src/ee2pw/__init__.py` and `uv.lock` in sync too), then builds with `uv build` and creates the GitHub release with the tag annotation's body as notes (or uploads assets if the release already exists).
+CI (`.github/workflows/ci.yml`) runs ruff and the tests on Python 3.12–3.14. Publishing a GitHub release runs `release.yml`: it fails unless the release tag equals `v` + the `pyproject.toml` version (keep `src/ee2pw/__init__.py` and `uv.lock` in sync too), then builds with `uv build` and uploads the wheel and sdist to that release. It does not create releases or notes.
 
 `tests/test_fixtures.py` runs every `tests/fixtures/presets/*.json` through `builder()` and compares it with `tests/fixtures/expected/<same name>.json`. These are copies, deliberately separate from the top-level `presets/`, which change often and, like `examples/`, are gitignored (local working files only).
 

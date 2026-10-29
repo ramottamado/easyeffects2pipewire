@@ -149,9 +149,9 @@ UPDATE_FIXTURES=1 uv run python -m unittest tests.test_fixtures
 A devcontainer is included in `.devcontainer/`.
 
 CI runs lint and tests on every push and pull request. To release, bump the version in
-`pyproject.toml` and `src/ee2pw/__init__.py`, run `uv lock`, commit, then push an annotated
-`vX.Y.Z` tag. The release workflow checks that the tag matches the version, builds the wheel and
-sdist, and publishes a GitHub release that uses the tag message as its notes.
+`pyproject.toml` and `src/ee2pw/__init__.py`, run `uv lock`, commit, then publish a GitHub release
+tagged `vX.Y.Z`. The release workflow checks that the tag matches the version, then builds the
+wheel and sdist and attaches them to the release.
 
 ## License
 
