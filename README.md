@@ -47,8 +47,8 @@ options:
 ## Example
 
 ```bash
-python -m ee2pw "extras/presets/Think.json" \
+python -m ee2pw "presets/Think.json" \
     -n "ThinkPad X13" \
     -t "alsa_output.pci-0000_73_00.6.HiFi__Speaker__sink" \
-    -o "extras/examples/think.json"
+    -o "examples/think.json"
 ```

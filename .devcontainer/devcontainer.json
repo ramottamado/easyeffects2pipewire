@@ -1,0 +1,62 @@
+{
+  "name": "ee2pw",
+  "build": {
+    "dockerfile": "Containerfile",
+    "context": "."
+  },
+  "runArgs": [
+    "--name",
+    "ee2pw",
+    "--tmpfs=/tmp:rw,exec,nosuid,nodev,mode=1777"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+  },
+  "containerUser": "vscode",
+  "remoteUser": "vscode",
+  "postCreateCommand": "uv sync --locked --all-groups",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": "true",
+      "username": "vscode",
+      "userUid": "1000",
+      "userGid": "1000",
+      "upgradePackages": "true"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+        "version": "os-provided"
+    },
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "lts"
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    "ghcr.io/ramottamado/devcontainer-features/vscode-extensions-cache:latest": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-toolsai.jupyter",
+        "ms-ossdata.vscode-pgsql",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.autopep8",
+        "charliermarsh.ruff"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
+        "python.terminal.activateEnvironment": false
+      }
+    }
+  },
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/devcontainers/features/node",
+    "ghcr.io/anthropics/devcontainer-features/claude-code",
+    "ghcr.io/devcontainers/features/git",
+    "ghcr.io/ramottamado/devcontainer-features/vscode-extensions-cache:latest"
+  ],
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached",
+    "source=ee2pw-venv,target=/home/vscode/.venv,type=volume,chown=true"
+  ]
+}

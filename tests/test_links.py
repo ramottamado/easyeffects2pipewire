@@ -1,13 +1,13 @@
-from ee2pw.links import create_links, create_inputs, create_outputs
-from ee2pw.util import load_config
+import unittest
 
-import unittest, json
+from ee2pw.links import create_inputs, create_links, create_outputs
+from ee2pw.util import load_config
 
 
 class TestLinksParsing(unittest.TestCase):
     def test_parse_links(self):
         # Load a sample configuration for testing
-        config = load_config("tests/data/Think.json")
+        config = load_config("tests/fixtures/presets/Think.json")
 
         # Parse the links from the configuration
         parsed_links = create_links(
@@ -45,7 +45,7 @@ class TestLinksParsing(unittest.TestCase):
         self.assertEqual(parsed_links, expected_links)
 
     def test_parse_inputs(self):
-        config = load_config("tests/data/Think.json")
+        config = load_config("tests/fixtures/presets/Think.json")
 
         parsed_inputs = create_inputs(
             [
@@ -59,7 +59,7 @@ class TestLinksParsing(unittest.TestCase):
         self.assertEqual(parsed_inputs, expected_inputs)
 
     def test_parse_outputs(self):
-        config = load_config("tests/data/Think.json")
+        config = load_config("tests/fixtures/presets/Think.json")
 
         parsed_outputs = create_outputs(
             [
