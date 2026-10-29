@@ -7,7 +7,8 @@
   "runArgs": [
     "--name",
     "ee2pw",
-    "--tmpfs=/tmp:rw,exec,nosuid,nodev,mode=1777"
+    "--tmpfs=/tmp:rw,exec,nosuid,nodev,mode=1777",
+    "--secret=gh_token,type=env,target=GH_TOKEN"
   ],
   "containerEnv": {
     "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
@@ -30,6 +31,9 @@
       "version": "lts"
     },
     "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "installDirectlyFromGitHubRelease": true
+    },
     "ghcr.io/ramottamado/devcontainer-features/vscode-extensions-cache:latest": {}
   },
   "customizations": {
@@ -53,10 +57,13 @@
     "ghcr.io/devcontainers/features/node",
     "ghcr.io/anthropics/devcontainer-features/claude-code",
     "ghcr.io/devcontainers/features/git",
+    "ghcr.io/devcontainers/features/github-cli:1",
     "ghcr.io/ramottamado/devcontainer-features/vscode-extensions-cache:latest"
   ],
   "mounts": [
     "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/gh,target=/home/vscode/.config/gh,type=bind,consistency=cached",
+    "source=uv-vol,target=/home/vscode/.uv,type=volume,chown=true",
     "source=ee2pw-venv,target=/home/vscode/.venv,type=volume,chown=true"
   ]
 }
