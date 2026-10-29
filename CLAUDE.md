@@ -16,7 +16,7 @@ uv run ee2pw "presets/Think.json" \
     -n "ThinkPad X13" \
     -t "alsa_output.pci-0000_73_00.6.HiFi__Speaker__sink" \
     -o "examples/think.json"
-# -n is effectively required (used to derive node names); -t enables smart-filter props;
+# -n and -o are required (-n derives node names); -t enables smart-filter props;
 # -i sets the directory for convolver .irs files (default /etc/pipewire/pipewire.conf.d)
 
 # Tests (unittest, not pytest; run from repo root because test_links loads fixtures by relative path)
@@ -31,7 +31,7 @@ uv run ruff check src tests && uv run ruff format src tests
 
 The package lives in `src/ee2pw/` (src layout), so it is only importable through the installed editable package — use `uv run`, not a bare `python` outside the venv.
 
-`tests/test_fixtures.py` runs every `tests/fixtures/presets/*.json` through `builder()` and compares it with `tests/fixtures/expected/<same name>.json`. These are copies, deliberately separate from the top-level `presets/`, which change often.
+`tests/test_fixtures.py` runs every `tests/fixtures/presets/*.json` through `builder()` and compares it with `tests/fixtures/expected/<same name>.json`. These are copies, deliberately separate from the top-level `presets/`, which change often and, like `examples/`, are gitignored (local working files only).
 
 ## Architecture
 
@@ -40,7 +40,7 @@ The package lives in `src/ee2pw/` (src layout), so it is only importable through
 - `plugins/_convert.py` holds the shared value converters used by every parser: `parse_bool` (with `invert`, used for `bypass` → `enabled`), `parse_enum`, `parse_float`, `parse_float_db` (dB → linear, anything below -80 dB becomes 0.0). Values are rounded to 6 decimals via `util.format_6f`.
 - Convolver is special and not in `PARSERS`: it is a builtin (not LV2), mono, needs the IRS dir, and is emitted as two nodes `<name>_l` / `<name>_r` (channel 0/1) with `In`/`Out` ports; `builder()` calls `parse_convolver` directly and drops it when bypassed; if only bypassed convolvers remain it emits a pass-through graph of builtin `copy` nodes, and an otherwise empty chain raises `ValueError` (CLI exits 1). `links.py` encodes this port-naming difference (`convolver*_l:In` vs `<lv2>:in_l`) when chaining nodes and choosing the graph's inputs/outputs.
 - Adding a plugin: new module in `plugins/`, one entry in `PARSERS`. Touch `links.py` only if its ports aren't `in_l/in_r/out_l/out_r`. New subpackages must be added to `[tool.setuptools] packages` in `pyproject.toml`.
-- Output is written as JSON (PipeWire accepts JSON in its conf files). `presets/` are source EasyEffects presets, `examples/` are generated outputs, `examples/reference/` are hand-written `.conf` equivalents.
+- Output is written as JSON (PipeWire accepts JSON in its conf files). Locally (untracked), `presets/` are source EasyEffects presets, `examples/` are generated outputs, `examples/reference/` are hand-written `.conf` equivalents.
 
 ## Shell helpers (`scripts/`)
 

@@ -16,7 +16,11 @@ def main():
         )
 
         argparser.add_argument(
-            "-n", "--filter-chain-name", type=str, help="Filter chain name."
+            "-n",
+            "--filter-chain-name",
+            type=str,
+            required=True,
+            help="Filter chain name.",
         )
 
         argparser.add_argument(
@@ -37,6 +41,7 @@ def main():
             "-o",
             "--output",
             type=str,
+            required=True,
             help="File output.",
         )
 
